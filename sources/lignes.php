@@ -1,7 +1,20 @@
 <?PHP
 
 
-//
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * Génère un diagramme en lignes
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_lignes($parametres)
 {
 
@@ -123,7 +136,9 @@ function diagrammes_lignes($parametres)
 				$y2 = ($ymax - $barre_hauteur);
 				
 				if ($compteur2 > 0) {
+				
 					$sortie .= '<line x1="' . $x1 .'" y1="' . $y1 . '" x2="' . $x2 .'" y2="' . $y2 . '" fill="' . $couleur . '" stroke="' . $couleur . '" stroke-width="1" fill-opacity="1.0" />' . "\n";
+				
 				}
 				
 				$g_id = $d_id . '1S' . $compteur . 'G' . $compteur2;
@@ -143,14 +158,17 @@ function diagrammes_lignes($parametres)
 						$sortie .= '<circle cx="' . $x2 .'" cy="' . $y2 . '" r="' . $point_rayon . '"';
 						$sortie .= ' fill="' . $couleur . '" stroke="white" stroke-width="0.5" fill-opacity="1.0"';
 						$sortie .= ' />' . "\n";
-						break;
+					
+					break;
+					
 					
 					case 'carre' :
 					
 						$sortie .= '<rect x="' . ($x2 - $point_rayon) .'" y="' . ($y2 - $point_rayon) . '" width="' . ($point_rayon * 2) . '" height="' . ($point_rayon * 2) . '"';
 						$sortie .= ' fill="' . $couleur . '" stroke="white" stroke-width="0.5" fill-opacity="1.0"';
 						$sortie .= ' />' . "\n";
-						break;
+					
+					break;
 				
 				}
 				

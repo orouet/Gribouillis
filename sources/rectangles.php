@@ -1,7 +1,20 @@
 <?PHP
 
 
-//
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * Génère un diagramme en rectangles
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_rectangles($parametres)
 {
 
@@ -35,7 +48,13 @@ function diagrammes_rectangles($parametres)
 }
 
 
-//
+
+/**
+ * Génère un diagramme en rectangles en paysage
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_rectangles_paysage($parametres)
 {
 
@@ -234,7 +253,7 @@ function diagrammes_rectangles_paysage($parametres)
 		}
 		
 		$compteur++;
-		
+	
 	}
 	
 	return $sortie;
@@ -242,7 +261,13 @@ function diagrammes_rectangles_paysage($parametres)
 }
 
 
-//
+
+/**
+ * Génère un diagramme en rectangles en portrait
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_rectangles_portrait($parametres)
 {
 

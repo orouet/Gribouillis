@@ -1,7 +1,20 @@
 <?PHP
 
 
-//
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * Génère un diagramme circulaire
+ *
+ * @param array $parametres
+ * @return string
+ */
 function chart_circulaires($parametres)
 {
 
@@ -52,7 +65,7 @@ function chart_circulaires($parametres)
 	$colonnes_max = floor($largeur_utile / $largeur_mini);
 	$lignes_max = floor($hauteur_utile / $hauteur_mini);
 	$cercles_max = $colonnes_max * $lignes_max;
-
+	
 	//
 	$series_nombre = count($series['donnees']);
 	
@@ -147,7 +160,7 @@ function chart_circulaires($parametres)
 				// Coordonnées absolues de la fin de l'arc de cercle
 				$arc_x2 = $cercle_x + $arc_x2r;
 				$arc_y2 = $cercle_y + $arc_y2r;
-
+				
 				// Détermination de la courbure de l'arc
 				if ($valeur > $moitie) {
 				

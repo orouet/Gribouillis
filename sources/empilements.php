@@ -1,14 +1,27 @@
 <?PHP
 
 
-//
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * GÃ©nÃ¨re un diagramme par empilements
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_empilements($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lectures des paramètres
+	// lectures des paramÃ¨tres
 	$axes_x = $parametres['axes_x'];
 	$axe_x = current($axes_x);
 	
@@ -35,14 +48,20 @@ function diagrammes_empilements($parametres)
 }
 
 
-//
+
+/**
+ * GÃ©nÃ¨re un diagramme par empilements en paysage
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_empilements_paysage($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lectures des paramètres
+	// lectures des paramÃ¨tres
 	$d_id = $parametres['d_id'];
 	$origine_x = $parametres['x'];
 	$origine_y = $parametres['y'];
@@ -70,7 +89,7 @@ function diagrammes_empilements_paysage($parametres)
 	$padding_bottom = 20;
 	$padding_left = $axes_y_largeur + 10;
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x + $padding_left;
 	$xmax = $origine_x + $largeur - $padding_right;
 	$ymin = $origine_y + $padding_top;
@@ -80,7 +99,7 @@ function diagrammes_empilements_paysage($parametres)
 	$largeur_utile = $xmax - $xmin;
 	$hauteur_utile = $ymax - $ymin;
 	
-	// décompte des éléments
+	// dÃ©compte des Ã©lÃ©ments
 	$listes_nombre = count($listes);
 	$series_nombre = count($series['donnees']);
 	$barres_nombre = $listes_nombre * $series_nombre;
@@ -89,7 +108,7 @@ function diagrammes_empilements_paysage($parametres)
 	$listes_intervalles = ($listes_nombre - 1);
 	$series_intervalles = ($series_nombre - 1);
 	
-	// décalages
+	// dÃ©calages
 	if ($listes_intervalles > 0) {
 	
 		$decalage_y = floor(($hauteur_utile / $listes_intervalles) / 6);
@@ -116,7 +135,7 @@ function diagrammes_empilements_paysage($parametres)
 	// plafond = valeur maximale jamais atteinte
 	$valeur_plafond = plafond_trouver($valeur_max);
 	
-	// calcul de l'unité
+	// calcul de l'unitÃ©
 	$unite = $largeur_utile / $valeur_plafond;
 	
 	// axes d'abscisse
@@ -149,7 +168,7 @@ function diagrammes_empilements_paysage($parametres)
 	
 		$compteur2 = 0;
 		
-		// début de la zone
+		// dÃ©but de la zone
 		$zone_y1 = $y;
 		
 		$x = $xmin;
@@ -203,7 +222,7 @@ function diagrammes_empilements_paysage($parametres)
 				$texte_x = $x + round($barre_largeur / 2);
 				$texte_y = $y + floor($barre_hauteur / 2) + round($texte_taille / 2);
 				
-				// écriture de la somme
+				// Ã©criture de la somme
 				if ($barre_largeur > $texte_largeur) {
 				
 					$sortie .= '<text x="' . $texte_x . '" y="' . $texte_y . '" style="text-anchor:middle;fill:' . $texte_couleur . ';font-size:' . $texte_taille . 'px;font-weight:normal;font-family:Tahoma, Verdana;font-style:normal;">';
@@ -237,7 +256,7 @@ function diagrammes_empilements_paysage($parametres)
 		$somme_x = $x + 5;
 		$somme_y = round(($zone_y1 + $zone_y2) / 2) + ($somme_taille / 2);
 		
-		// écriture de la somme
+		// Ã©criture de la somme
 		$sortie .= '<text x="' . $somme_x . '" y="' . $somme_y . '" style="text-anchor:start;fill:' . $somme_couleur . ';font-size:' . $somme_taille . 'px;font-weight:bold;font-family:Tahoma, Verdana;font-style:normal;">';
 		$sortie .= $somme;
 		$sortie .= '</text>' . "\n";
@@ -252,9 +271,11 @@ function diagrammes_empilements_paysage($parametres)
 	
 	}
 	
-	// on trace les libellés de l'axe Y
+	// on trace les libellÃ©s de l'axe Y
 	$zone_y1 = $ymin;
 	$compteur = 0;
+	
+	// die($series_nombre);
 	
 	foreach ($listes as $liste) {
 	
@@ -269,7 +290,7 @@ function diagrammes_empilements_paysage($parametres)
 		$titre_x = $xmin - 5;
 		$titre_y = round(($zone_y1 + $zone_y2) / 2);
 		
-		// écriture du titre
+		// Ã©criture du titre
 		$sortie .= '<text x="' . $titre_x . '" y="' . $titre_y . '" style="text-anchor:end;fill:' . $titre_couleur . ';font-size:' . $titre_taille . 'px;font-weight:normal;font-family:Tahoma, Verdana;font-style:normal;">';
 		$sortie .= $titre_libelle;
 		$sortie .= '</text>' . "\n";
@@ -291,14 +312,20 @@ function diagrammes_empilements_paysage($parametres)
 }
 
 
-//
+
+/**
+ * GÃ©nÃ¨re un diagramme par empilements en portait
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_empilements_portrait($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lectures des paramètres
+	// lectures des paramÃ¨tres
 	$d_id = $parametres['d_id'];
 	$origine_x = $parametres['x'];
 	$origine_y = $parametres['y'];
@@ -327,7 +354,7 @@ function diagrammes_empilements_portrait($parametres)
 	$padding_bottom = 20;
 	$padding_left = $axes_y_largeur + 10;
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x + $padding_left;
 	$xmax = $origine_x + $largeur - $padding_right;
 	$ymin = $origine_y + $padding_top;
@@ -337,7 +364,7 @@ function diagrammes_empilements_portrait($parametres)
 	$largeur_utile = $xmax - $xmin;
 	$hauteur_utile = $ymax - $ymin;
 	
-	// décompte des éléments
+	// dÃ©compte des Ã©lÃ©ments
 	$listes_nombre = count($listes);
 	$series_nombre = count($series['donnees']);
 	$barres_nombre = $listes_nombre * $series_nombre;
@@ -348,7 +375,7 @@ function diagrammes_empilements_portrait($parametres)
 	$series_intervalles = ($series_nombre - 1);
 	
 	
-	// décalages
+	// dÃ©calages
 	if ($listes_intervalles > 0) {
 	
 		$decalage_x = floor(($largeur_utile / $listes_intervalles) / 6);
@@ -374,10 +401,10 @@ function diagrammes_empilements_portrait($parametres)
 	// plafond = valeur maximale jamais atteinte
 	$valeur_plafond = plafond_trouver($valeur_max);
 	
-	// calcul de l'unité
+	// calcul de l'unitÃ©
 	$unite = $hauteur_utile / $valeur_plafond;
 	
-	// affichage des axes d'ordonnées
+	// affichage des axes d'ordonnÃ©es
 	foreach($axes_y as $axe_y) {
 	
 		$param = [
@@ -408,7 +435,7 @@ function diagrammes_empilements_portrait($parametres)
 	
 		$compteur2 = 0;
 		
-		// début de la zone
+		// dÃ©but de la zone
 		$zone_x1 = $x;
 		
 		$y = $ymax;
@@ -461,7 +488,7 @@ function diagrammes_empilements_portrait($parametres)
 				$texte_x = $x + round($barre_largeur / 2);
 				$texte_y = $rect_y + floor($barre_hauteur / 2) + round($texte_taille / 2);
 				
-				// écriture de la somme
+				// Ã©criture de la somme
 				if ($barre_hauteur > 10) {
 				
 					$sortie .= '<text x="' . $texte_x . '" y="' . $texte_y . '" style="text-anchor:middle;fill:' . $texte_couleur . ';font-size:' . $texte_taille . 'px;font-weight:normal;font-family:Tahoma, Verdana;font-style:normal;">';
@@ -496,7 +523,7 @@ function diagrammes_empilements_portrait($parametres)
 		$somme_x = round(($zone_x1 + $zone_x2) / 2);
 		$somme_y = $y - 5;
 		
-		// écriture de la somme
+		// Ã©criture de la somme
 		$sortie .= '<text x="' . $somme_x . '" y="' . $somme_y . '" style="text-anchor:middle;fill:' . $somme_couleur . ';font-size:' . $somme_taille . 'px;font-weight:bold;font-family:Tahoma, Verdana;font-style:normal;">';
 		$sortie .= $somme;
 		$sortie .= '</text>' . "\n";
@@ -511,10 +538,12 @@ function diagrammes_empilements_portrait($parametres)
 	
 	}
 	
-	// on trace les libellés de l'axe X
+	// on trace les libellÃ©s de l'axe X
 	$zone_x1 = $xmin;
 	$zone_largeur = $barre_largeur;
 	$compteur = 0;
+	
+	// var_dump($series_nombre);
 	
 	foreach($listes as $liste) {
 	
@@ -544,13 +573,13 @@ function diagrammes_empilements_portrait($parametres)
 			
 				$titre_libelle = $ligne;
 				
-				// Calculs sur les paramètres du titre
+				// Calculs sur les paramÃ¨tres du titre
 				$titre_longueur = strlen($titre_libelle);
 				$titre_largeur = $titre_longueur * $police_taille * 1;
 				$titre_x = round(($zone_x1 + $zone_x2) / 2);
 				$titre_y = $ymin + $hauteur_utile + ($police_taille * $l) + 2;
 				
-				// écriture du titre
+				// Ã©criture du titre
 				$sortie .= '<text x="' . $titre_x . '" y="' . $titre_y . '" style="text-anchor:middle;fill:' . $police_couleur . ';font-size:' . $police_taille . 'px;font-weight:normal;font-family:Tahoma, Verdana;font-style:normal;">';
 				$sortie .= $titre_libelle;
 				$sortie .= '</text>' . "\n";

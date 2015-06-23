@@ -1,7 +1,20 @@
 <?PHP
 
 
-//
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * PrÃ©paration d'un diagramme
+ *
+ * @param array $tableau
+ * @return array
+ */
 function diagramme_preparer($tableau)
 {
 
@@ -10,7 +23,18 @@ function diagramme_preparer($tableau)
 	$axe_x = [];
 	$axe_y = [];
 	$series = [];
-	$couleurs = ['#50B432', '#ED561B', '#058DC7', '#000000', '#6C71C4', '#B58900'];
+	$couleurs = [
+		'#50B432',
+		'#ED561B',
+		'#058DC7',
+		'#002B36',
+		'#D33682',
+		'#6C71C4',
+		'#B58900',
+		'#CB4B16',
+		'#859900',
+		'#AAAAAA',
+	];
 	$c = 0;
 	
 	// traitement
@@ -55,7 +79,7 @@ function diagramme_preparer($tableau)
 			
 			}
 			
-			// initialisation des séries
+			// initialisation des sÃ©ries
 			if (!isset($series[$s])) {
 			
 				$series[$s] = [
@@ -68,14 +92,14 @@ function diagramme_preparer($tableau)
 			
 			}
 			
-			// ajout des donnees à la série
+			// ajout des donnees Ã  la sÃ©rie
 			$series[$s]['donnees'][$x] = $y;
 		
 		}
 	
 	}
 	
-	// préparation de la sortie
+	// prÃ©paration de la sortie
 	$sortie = [
 		'axe_x' => $axe_x,
 		'axe_y' => $axe_y,
@@ -88,7 +112,13 @@ function diagramme_preparer($tableau)
 }
 
 
-//
+
+/**
+ * Analyse glogale et renvoie des statistiques
+ *
+ * @param array $parametres
+ * @return array
+ */
 function chart_analyser($parametres)
 {
 
@@ -104,7 +134,13 @@ function chart_analyser($parametres)
 }
 
 
-//
+
+/**
+ * Analyse des sÃ©ries et renvoie des statistiques
+ *
+ * @param array $series
+ * @return array
+ */
 function chart_series_analyser($series)
 {
 
@@ -121,10 +157,10 @@ function chart_series_analyser($series)
 	
 		$donnees = $serie['donnees'];
 		
-		// on parcourt les mesures de la série
+		// on parcourt les mesures de la sÃ©rie
 		foreach($donnees as $x => $valeur) {
 		
-			// on cherche la valeur maximale toutes séries confondues
+			// on cherche la valeur maximale toutes sÃ©ries confondues
 			if ($valeur > $max['valeur']) {
 			
 				$max['valeur'] = $valeur;
@@ -140,7 +176,7 @@ function chart_series_analyser($series)
 			
 			$mesures[$x]['somme'] += $valeur;
 			
-			// on cherche la somme maximale toutes séries confondues
+			// on cherche la somme maximale toutes sÃ©ries confondues
 			if ($mesures[$x]['somme'] > $max['somme']) {
 			
 				$max['somme'] = $mesures[$x]['somme'];
@@ -187,7 +223,13 @@ function chart_series_analyser($series)
 }
 
 
-//
+
+/**
+ * Analyse une sÃ©rie et renvoie des statistiques
+ *
+ * @param array $serie
+ * @return array
+ */
 function chart_serie_analyser($serie)
 {
 
@@ -203,21 +245,27 @@ function chart_serie_analyser($serie)
 }
 
 
-//
+
+/**
+ * GÃ©nÃ¨re l'axe des abscisses
+ *
+ * @param array $parametres
+ * @return string
+ */
 function chart_abscisse($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lecture des paramètres
+	// lecture des paramÃ¨tres
 	$origine_x = $parametres['x'];
 	$origine_y = $parametres['y'];
 	$largeur = $parametres['largeur'];
 	$hauteur = $parametres['hauteur'];
 	$max = $parametres['max'];
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x;
 	$xmax = $origine_x + $largeur;
 	$ymin = $origine_y;
@@ -227,10 +275,13 @@ function chart_abscisse($parametres)
 	$largeur_utile = $xmax - $xmin;
 	$hauteur_utile = $ymax - $ymin;
 	
-	// calcul de l'unité
+	// nombre de sÃ©ries
+	$series_nombre = count($series['donnees']);
+	
+	// calcul de l'unitÃ©
 	$unite = $largeur_utile / $max;
 	
-	// décalages (espacements)
+	// dÃ©calages (espacements)
 	$tranche = $max / 5;
 	
 	$decalage_x = $tranche * $unite;
@@ -243,7 +294,9 @@ function chart_abscisse($parametres)
 	
 	$compteur = 0;
 	
-	while ($compteur < 6) {
+	// die($series_nombre);
+	
+	while ($compteur <= $series_nombre) {
 	
 		$sortie .= '<line x1="' . $x .'" y1="' . $ymin . '" x2="' . $x .'" y2="' . $ymax . '" fill="' . $couleur . '" stroke="' . $couleur . '" stroke-width="0.5" fill-opacity="1.0" />' . "\n";
 		
@@ -271,14 +324,20 @@ function chart_abscisse($parametres)
 }
 
 
-//
+
+/**
+ * GÃ©nÃ¨re la lÃ©gende
+ *
+ * @param array $parametres
+ * @return string
+ */
 function diagrammes_legendes_generer($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lectures des paramètres
+	// lectures des paramÃ¨tres
 	$d_id = $parametres['d_id'];
 	$origine_x = $parametres['x'];
 	$origine_y = $parametres['y'];
@@ -302,7 +361,7 @@ function diagrammes_legendes_generer($parametres)
 	
 	} else {
 	
-		$titre_libelle = "Légende";
+		$titre_libelle = "LÃ©gende";
 	
 	}
 	
@@ -315,7 +374,7 @@ function diagrammes_legendes_generer($parametres)
 	$padding_bottom = 10;
 	$padding_left = 20;
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x + $padding_left;
 	$xmax = $origine_x + $largeur - $padding_right;
 	$ymin = $origine_y + $padding_top;
@@ -325,7 +384,7 @@ function diagrammes_legendes_generer($parametres)
 	$largeur_utile = $xmax - $xmin;
 	$hauteur_utile = $ymax - $ymin;
 	
-	// dimensions des pavés de couleur
+	// dimensions des pavÃ©s de couleur
 	$pave_largeur = 20;
 	$pave_hauteur = 10;
 	
@@ -333,7 +392,7 @@ function diagrammes_legendes_generer($parametres)
 	$titre_x = $xmin + round($largeur_utile / 2);
 	$titre_y = $origine_y + $titre_taille + 10;
 	
-	// écriture du titre
+	// Ã©criture du titre
 	$sortie .= '<text x="' . $xmin . '" y="' . $titre_y . '" style="text-align:left;fill:' . $titre_couleur . ';font-size:' . $titre_taille . 'px;font-weight:bold;font-family:Tahoma, Verdana;font-style:normal;">';
 	$sortie .= $titre_libelle;
 	$sortie .= '</text>' . "\n";
@@ -366,21 +425,27 @@ function diagrammes_legendes_generer($parametres)
 }
 
 
-//
+
+/**
+ * GÃ©nÃ¨re l'axe des ordonnÃ©es
+ *
+ * @param array $parametres
+ * @return string
+ */
 function chart_ordonnees($parametres)
 {
 
 	// initialisation des variables
 	$sortie = '';
 	
-	// lecture des paramètres
+	// lecture des paramÃ¨tres
 	$origine_x = $parametres['x'];
 	$origine_y = $parametres['y'];
 	$largeur = $parametres['largeur'];
 	$hauteur = $parametres['hauteur'];
 	$max = $parametres['max'];
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x;
 	$xmax = $origine_x + $largeur;
 	$ymin = $origine_y;
@@ -390,10 +455,10 @@ function chart_ordonnees($parametres)
 	$largeur_utile = $xmax - $xmin;
 	$hauteur_utile = $ymax - $ymin;
 	
-	// calcul de l'unité
+	// calcul de l'unitÃ©
 	$unite = $hauteur_utile / $max;
 	
-	// décalages (espacements)
+	// dÃ©calages (espacements)
 	$tranche = $max / 5;
 	$decalage_y = $tranche * $unite;
 	
@@ -433,10 +498,20 @@ function chart_ordonnees($parametres)
 }
 
 
-//
+
+/**
+ * Trouve un plafond
+ *
+ * @param float $valeur
+ * @return float
+ */
 function plafond_trouver($valeur)
 {
 
+	// initialisation des variables
+	$sortie = 0;
+	
+	// traitement
 	$base = ceil($valeur);
 	
 	$largeur = strlen($base);
@@ -462,6 +537,7 @@ function plafond_trouver($valeur)
 	
 	// var_dump($valeur . '=> ' . $sortie);
 	
+	// sortie
 	return $sortie;
 
 }

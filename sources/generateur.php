@@ -1,8 +1,22 @@
 <?PHP
 
 
-//
-function diagramme_generer($parametres) {
+/**
+ * Gribouillis
+ * @package Gribouillis
+ * @author Olivier ROUET
+ * @version 1.0.0
+ */
+
+
+/**
+ * GÃ©nÃ¨re un diagramme
+ *
+ * @param array $parametres
+ * @return string
+ */
+function diagramme_generer($parametres)
+{
 
 	// initialisation des variables
 	$sortie = '';
@@ -91,45 +105,80 @@ function diagramme_generer($parametres) {
 		]
 	];
 	
-	// analyse et correction des paramètres
+	// analyse et correction des paramÃ¨tres
 	$parametres = chart_analyser($parametres);
 	
-	// lectures des paramètres
+	// lectures des paramÃ¨tres
 	if (isset($parametres['d_id'])) {
+	
 		$d_id = $parametres['d_id'];
+	
 	}
+	
 	if (isset($parametres['x'])) {
+	
 		$origine_x = $parametres['x'];
+	
 	}
+	
 	if (isset($parametres['y'])) {
+	
 		$origine_y = $parametres['y'];
+	
 	}
+	
 	if (isset($parametres['largeur'])) {
+	
 		$largeur = $parametres['largeur'];
+	
 	}
+	
 	if (isset($parametres['hauteur'])) {
+	
 		$hauteur = $parametres['hauteur'];
+	
 	}
+	
 	if (isset($parametres['type'])) {
+	
 		$type = $parametres['type'];
+	
 	}
+	
 	if (isset($parametres['police'])) {
+	
 		$police = $parametres['police'];
+	
 	}
+	
 	if (isset($parametres['titre'])) {
+	
 		$titre = $parametres['titre'];
+	
 	}
+	
 	if (isset($parametres['sous-titre'])) {
+	
 		$soustitre = $parametres['sous-titre'];
+	
 	}
+	
 	if (isset($parametres['axes_x'])) {
+	
 		$axes_x = $parametres['axes_x'];
+	
 	}
+	
 	if (isset($parametres['axes_y'])) {
+	
 		$axes_y = $parametres['axes_y'];
+	
 	}
+	
 	if (isset($parametres['series'])) {
+	
 		$series = $parametres['series'];
+	
 	}
 	
 	// calculs automatiques
@@ -156,7 +205,7 @@ function diagramme_generer($parametres) {
 	$padding_bottom = 10;
 	$padding_left = 10;
 	
-	// bornes des abscisses et des ordonnées maximum
+	// bornes des abscisses et des ordonnÃ©es maximum
 	$xmin = $origine_x + $padding_left;
 	$xmax = $origine_x + $largeur - $padding_right;
 	$ymin = $origine_y + $padding_top;
@@ -172,12 +221,12 @@ function diagramme_generer($parametres) {
 	$soustitre_x = $xmin + round($largeur_utile / 2);
 	$soustitre_y = $titre_y + $soustitre_taille + 5;
 	
-	// écriture du titre
+	// Ã©criture du titre
 	$sortie .= '<text x="' . $titre_x . '" y="' . $titre_y . '" style="text-anchor:middle;fill:' . $titre_couleur . ';font-size:' . $titre_taille . 'px;font-weight:bold;font-family:Tahoma, Verdana;font-style:normal;">';
 	$sortie .= $titre_libelle;
 	$sortie .= '</text>' . "\n";
 	
-	// écriture du sous-titre
+	// Ã©criture du sous-titre
 	$sortie .= '<text x="' . $soustitre_x . '" y="' . $soustitre_y . '" style="text-anchor:middle;fill:' . $soustitre_couleur . ';font-size:' . $soustitre_taille . 'px;font-weight:normal;font-family:Tahoma, Verdana;font-style:normal;">';
 	$sortie .= $soustitre_libelle;
 	$sortie .= '</text>' . "\n";
@@ -207,6 +256,7 @@ function diagramme_generer($parametres) {
 		
 		break;
 		
+		
 		case 'circulaires':
 		
 			$diagramme_x = $xmin;
@@ -230,6 +280,7 @@ function diagramme_generer($parametres) {
 		
 		break;
 		
+		
 		case 'empilements':
 		
 			$diagramme_x = $xmin;
@@ -252,6 +303,7 @@ function diagramme_generer($parametres) {
 			$sortie .= diagrammes_empilements($param1);
 		
 		break;
+		
 		
 		case 'lignes':
 		
