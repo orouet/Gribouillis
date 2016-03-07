@@ -10,7 +10,7 @@
 
 
 /**
- * Préparation d'un diagramme
+ * Préparation des données d'un diagramme
  *
  * @param array $tableau
  * @return array
@@ -82,9 +82,17 @@ function diagramme_preparer($tableau)
 			// initialisation des séries
 			if (!isset($series[$s])) {
 			
+				$couleur = '#000000';
+				
+				if (isset($couleurs[$c])) {
+				
+					$couleur = $couleurs[$c];
+				
+				}
+				
 				$series[$s] = [
 					'libelle' => $i,
-					'couleur' => $couleurs[$c],
+					'couleur' => $couleur,
 					'donnees' => []
 				];
 				

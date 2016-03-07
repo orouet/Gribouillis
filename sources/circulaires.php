@@ -127,7 +127,13 @@ function chart_circulaires($parametres)
 				
 				}
 				
-				$couleur = $serie['couleur'];
+				$couleur = '#000000';
+				
+				if (isset($serie['couleur'])) {
+				
+					$couleur = $serie['couleur'];
+				
+				}
 				
 				//
 				$font_size = 10;
